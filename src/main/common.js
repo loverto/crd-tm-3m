@@ -131,6 +131,14 @@ function getSequenceNumber(pch,pchIncreateFlag) {
     let length = pchArr.length - 1 ;
     // 获取最后一个数字，方便进行累加
     let pchIncreate = pchArr[length];
+    let pchIncreateStr = pchIncreate + "";
+    // 扩展支持以特殊符号结尾的操作
+    let endString = "+"
+    if (pchIncreateStr.endsWith(endString)){
+        pchIncreate = pchIncreateStr.substring(0,pchIncreateStr.length -1)
+    }else {
+        endString = "";
+    }
     // pchIncreateFlag = -1 说明是第一次，第一次，直接返回原值
     if (pchIncreateFlag == -1){
         result = pch
@@ -152,7 +160,7 @@ function getSequenceNumber(pch,pchIncreateFlag) {
         pchIncreate = "0" + pchIncreate
     }
     // 重新赋值
-    pchArr[length]=pchIncreate;
+    pchArr[length]=pchIncreate + endString;
 
     result = pchArr.join("-");
 
