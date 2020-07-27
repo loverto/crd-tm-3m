@@ -115,6 +115,8 @@ window.addEventListener('DOMContentLoaded', () => {
         let fileEle = null;
         if (eleId.startsWith('imageFilePath')){
             fileEle = createFileElement('imageFilePath',true)
+        }else if (eleId.startsWith('mouldFilePath')){
+            fileEle = createFileElement('mouldFilePath',true)
         }else if(eleId.startsWith('exportModelFilePath')){
             fileEle = createFileElement('exportModelFilePath',true)
         }else if(eleId.startsWith('modelFilePath')){
@@ -215,7 +217,7 @@ window.addEventListener('DOMContentLoaded', () => {
             configObjectChange = db.get('configObject')
         }
         let value = event.currentTarget.value;
-        configObjectChange.imageFilePath = value;
+        configObjectChange.mouldFilePath = value;
         db.set('configObject',configObjectChange);
     })
 

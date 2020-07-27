@@ -1,6 +1,6 @@
 {
   "name": "crd-tm-3m",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "CRD贴膜三面通用排版工具",
   "main": "src/main/main.js",
   "scripts": {
@@ -28,7 +28,7 @@
     "publish": [
       {
         "provider": "s3",
-        "bucket": "crd-tm-3m-package-app",
+        "bucket": "crd-tm-3m-13-package-app",
         "endpoint": "http://minio.xintonglu.top/"
       }
     ],
