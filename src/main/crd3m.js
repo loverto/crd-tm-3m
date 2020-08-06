@@ -1,7 +1,7 @@
 // 导入大漠插件版本
 const path = require("path");
 
-const dm = require('dm.dll')
+const dm = require('@loverto/dm.dll')
 const sleep = require('./sleep');
 const fs = require('fs')
 const readline = require('readline');

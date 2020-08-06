@@ -1,7 +1,7 @@
 // 导入大漠插件版本
 const sleep = require('./sleep');
 
-const dm = require('dm.dll')
+const dm = require('@loverto/dm.dll')
 const keycode = require('keycode')
 const dmExt = require('./dm.dll.ext')
 // 获取大漠插件的版本

@@ -1,4 +1,4 @@
-const dm = require('dm.dll')
+const dm = require('@loverto/dm.dll')
 const dmExt = require('../src/main/dm.dll.ext')
 
 const windowTitle = "CorelDRAW X6 (64 位)";
