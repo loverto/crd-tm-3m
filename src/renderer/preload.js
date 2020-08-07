@@ -158,7 +158,8 @@ window.addEventListener('DOMContentLoaded', () => {
                 configObjectChange.textFilePath = filePath
                 $('textFilePathText').value = filePath;
             }else if(eleId.startsWith('mouldFilePath')){
-                configObjectChange.textFilePath = filePath
+                filePath = getFilePath(filePath);
+                configObjectChange.mouldFilePath = filePath
                 $('mouldFilePathText').value = filePath;
             }
             // 把变动过的设置进去
