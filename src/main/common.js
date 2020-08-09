@@ -173,15 +173,35 @@ function getSequenceNumber(pch,pchIncreateFlag) {
  * @param fileName
  */
 function getFilePathByFileName(dirPath,fileName) {
+    return getFilePathByFileNameForCaseFilename(dirPath,fileName,true);
+}
+
+
+/**
+ * 根据文件名查找文件全路径
+ * @param dirPath 文件目录
+ * @param fileName 文件名称
+ * @param isIgnoreCaseFilename 是否忽略大小写
+ */
+function getFilePathByFileNameForCaseFilename(dirPath,fileName,isIgnoreCaseFilename) {
     let dirPathResolve = path.resolve(dirPath);
     let files = fs.readdirSync(dirPathResolve);
     let result = "";
     for (let i =0; i<files.length; i++){
         let filename = files[i];
-        if (filename.split(".")[0] == fileName){
-            result = dirPath + path.sep + filename;
-            break;
+        // 判断是否忽略大小写
+        if (isIgnoreCaseFilename){
+            if (filename.split(".")[0].toLocaleLowerCase() == fileName.toLocaleLowerCase()){
+                result = dirPath + path.sep + filename;
+                break;
+            }
+        }else{
+            if (filename.split(".")[0] == fileName){
+                result = dirPath + path.sep + filename;
+                break;
+            }
         }
+
     }
     return result;
 }

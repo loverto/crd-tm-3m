@@ -401,7 +401,21 @@ function handler(coreldrawHandlerFilePath,model,flag,coordinateArray,filename,nu
     let endCoordinate = modelPosition[number].split(",");
 
     logger.debug("开始移动图片")
-    common.selectAreaByPointArray(moveCoordinate,endCoordinate);
+    // common.selectAreaByPointArray(moveCoordinate,endCoordinate);
+    // 通过快捷键方式对齐，比通过坐标对其更精准
+    dm.keyDown(keycode("shift"))
+    coreldraw.moveAndClick(moveCoordinate);
+    sleep.msleep(200);
+    coreldraw.moveAndClick(endCoordinate);
+    sleep.msleep(200);
+    dm.keyUp(keycode("shift"));
+    sleep.msleep(500);
+
+    // dm.keyPress(keycode("shift"));
+    sleep.msleep(500);
+    dm.keyPress(keycode("c"));
+    dm.keyPress(keycode("e"));
+
 
 
     // 开始移动模具
@@ -451,7 +465,7 @@ function handler(coreldrawHandlerFilePath,model,flag,coordinateArray,filename,nu
     sleep.msleep(500);
     dm.keyUp(keycode("shift"));
     sleep.msleep(500);
-    dm.keyPress(keycode("shift"));
+    // dm.keyPress(keycode("shift"));
     sleep.msleep(200);
     dm.keyPress(keycode("c"));
     dm.keyPress(keycode("e"));
