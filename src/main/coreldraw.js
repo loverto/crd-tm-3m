@@ -271,13 +271,13 @@ function moveAndClick(coor) {
 }
 
 /**
- *  关闭模板
+ *  关闭模板 Ctrl + F4
  */
 function  closeModel() {
     sleep.msleep(3000)
-    dm.keyDown(17)
-    dm.keyPress(115)
-    dm.keyUp(17)
+    dm.keyDown(keycode("ctrl"))
+    dm.keyPress(keycode("f4"))
+    dm.keyUp(keycode("ctrl"))
     sleep.msleep(3000)
 }
 
