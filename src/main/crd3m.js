@@ -34,6 +34,14 @@ keepTable.set("1", value)
 keepTable.set("2", value1)
 keepTable.set("3", value2)
 
+// 保存尺寸与位置的映射关系
+let keepPicTable = new Map();
+
+keepPicTable.set("15",1);
+keepPicTable.set("14",2);
+keepPicTable.set("13",3);
+keepPicTable.set("12",4);
+
 // 获取大漠插件的版本
 logger.debug(dm.dll.ver())
 
@@ -299,6 +307,8 @@ function main(configObject) {
                         sleep.msleep(3000)
                         logger.debug("保存完毕，开始关闭当前标签页")
                         coreldraw.closeModel();
+                        coreldraw.closeModel();
+                        coreldraw.closeModel();
                         sleep.msleep(500)
                         logger.debug("关闭完毕")
                         coreldraw.eas();
@@ -317,7 +327,8 @@ function main(configObject) {
                 // // 执行完重置该行数据
                 // j = 0;
                 logger.debug("保存之后，判断是否需要打开新的模板")
-                if (i<=data.length-1){
+                if (i<=dataArr.length-1){
+                    logger.debug("执行完毕，开始保存，共执行"+i+"版");
                     sleep.msleep(500)
                     coreldraw.openUModel(modelFilePath);
                     sleep.msleep(200)
@@ -346,12 +357,42 @@ function main(configObject) {
 
 }
 
-
+/**
+ * 激活输入法
+ * 该发放暂时不可用
+ * @param windowTitle
+ * @param input
+ */
 function activeInput(windowTitle,input) {
     const hwnd = dm.findWindow("", windowTitle);
     if (dmExt.checkInputMethod(hwnd, input) == 0) {
         dmExt.activeInputMethod(hwnd, input)
     }
+}
+
+/**
+ * 导入模型并解锁
+ * @param coreldrawHandlerFilePath
+ */
+function importModelAndUnLock (coreldrawHandlerFilePath) {
+    coreldraw.importUModel(coreldrawHandlerFilePath)
+    sleep.msleep(500)
+    logger.debug('start position' + JSON.stringify(leftClickCoordinate))
+    dm.moveTo(leftClickCoordinate[0], leftClickCoordinate[1])
+    sleep.msleep(200)
+    dm.leftClick()
+    sleep.msleep(2000)
+    logger.debug('开始解除组合')
+    // 解锁
+    coreldraw.ctrlAndU()
+
+    logger.debug('点击空白坐标')
+    // 点击空白坐标
+    sleep.msleep(500)
+    coreldraw.moveAndClick(clickWhite)
+    sleep.msleep(500)
+
+    logger.debug('开始删除无关的图')
 }
 
 /**
@@ -374,28 +415,12 @@ function handler(coreldrawHandlerFilePath,model,flag,coordinateArray,filename,nu
     )
     sleep.msleep(500)
     logger.debug("start import model")
-    coreldraw.importUModel(coreldrawHandlerFilePath);
-    sleep.msleep(500)
-    logger.debug("start position"+JSON.stringify(leftClickCoordinate))
-    dm.moveTo(leftClickCoordinate[0],leftClickCoordinate[1])
-    sleep.msleep(200)
-    dm.leftClick();
-    sleep.msleep(2000)
-    logger.debug("开始解除组合")
-    // 解锁
-    coreldraw.ctrlAndU()
-
-    logger.debug("点击空白坐标")
-    // 点击空白坐标
-    sleep.msleep(500)
-    coreldraw.moveAndClick(clickWhite)
-    sleep.msleep(500)
-
-    logger.debug("开始删除无关的图")
+    importModelAndUnLock(coreldrawHandlerFilePath)
     // 删除不相关的图
     let moveCoordinate = [];
     // 14 寸
-    let keepPic = 3;
+    // let keepPic = 3;
+    let keepPic = keepPicTable.get(modelNumber);
     moveCoordinate = coreldraw.deleteOtherObject(coordinateArray, keepPic);
 
     let endCoordinate = modelPosition[number].split(",");
@@ -422,25 +447,7 @@ function handler(coreldrawHandlerFilePath,model,flag,coordinateArray,filename,nu
 
     sleep.msleep(500)
     logger.debug("start import mould")
-    coreldraw.importUModel(model);
-    sleep.msleep(500)
-    logger.debug("start position"+JSON.stringify(leftClickCoordinate))
-    dm.moveTo(leftClickCoordinate[0],leftClickCoordinate[1])
-    sleep.msleep(200)
-    dm.leftClick();
-    sleep.msleep(2000)
-    logger.debug("开始解除组合")
-    // 解锁
-    coreldraw.ctrlAndU()
-
-    logger.debug("点击空白坐标")
-    // 点击空白坐标
-    sleep.msleep(500)
-    coreldraw.moveAndClick(clickWhite)
-    sleep.msleep(500)
-
-    logger.debug("开始删除无关的图")
-
+    importModelAndUnLock(model);
 
     logger.debug("keep tables raw data is :"+JSON.stringify(keepTable))
     logger.debug("keep raw data is :"+JSON.stringify(keep) + (typeof keep))
