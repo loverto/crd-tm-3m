@@ -235,7 +235,7 @@ function main(configObject) {
                     // 模具路径
                     let mouldPath = common.getFilePathByFileName(mouldFilePath,mouldfilename);
                     // 图片路径和模板路径都存在
-                    if (fs.existsSync(picPath) && fs.existsSync(modelFilePath)){
+                    if (fs.existsSync(picPath) && fs.existsSync(modelFilePath) && fs.existsSync(mouldPath)){
                         handler(picPath,mouldPath,false,modelCoordinate,picfilename,j,modelNumber,keep)
                     }
                     logger.debug("开始点击空白位置")
