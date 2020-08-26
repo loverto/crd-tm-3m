@@ -265,6 +265,10 @@ function main(configObject) {
                         dm.keyPress(keycode("page down"))
                         dm.keyUp(keycode("shift"))
 
+                        logger.debug("开始点击空白位置")
+                        sleep.msleep(500)
+                        coreldraw.moveAndClick(clickWhite)
+                        sleep.msleep(500)
 
                         // 按区域选中组合
                         dm.keyDown(keycode("shift"))
