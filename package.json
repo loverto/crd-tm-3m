@@ -1,6 +1,6 @@
 {
   "name": "crd-tm-3m",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "CRD贴膜三面通用排版工具",
   "main": "dist/main/main.js",
   "scripts": {
